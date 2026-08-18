@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RentPulse — Fully Automated Telecom & Computer Rentals</title>
+  <meta name="description" content="Rent laptops, servers, networking gear, VoIP phones, and telecom equipment with AI-powered automation, dynamic pricing, and instant availability.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="images/logo.jpg" type="image/jpeg">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="images/logo.jpg" alt="RentPulse">
+        <span>RentPulse</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#products" class="active">Catalog</a></li>
+          <li><a href="#how">How It Works</a></li>
+          <li><a href="#features">Automation</a></li>
+          <li><a href="#dashboard">Live Ops</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <button class="btn btn-outline" onclick="document.getElementById('chat-window').classList.add('open')">
+          🤖 AI Support
+        </button>
+        <button class="btn btn-ghost cart-btn" onclick="openCart()" aria-label="Cart">
+          🛒
+          <span class="cart-count" id="cart-count" style="display:none">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="pulse"></span>
+        Fully Automated Platform · Live Inventory
+      </div>
+      <h1>Rent Computers & Telecom Gear<br><span class="gradient">Instantly. Automatically.</span></h1>
+      <p>
+        AI-driven pricing, real-time stock, IoT tracking, and zero-touch fulfillment. 
+        From business laptops to enterprise switches and fiber testers — rent what you need, when you need it.
+      </p>
+      <div class="hero-ctas">
+        <a href="#products" class="btn btn-primary">Browse Catalog →</a>
+        <button class="btn btn-outline" onclick="toggleChat()">Talk to PulseAI</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-value">2,400+</div>
+          <div class="stat-label">Devices Online</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">< 4h</div>
+          <div class="stat-label">Avg Dispatch</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">99.2%</div>
+          <div class="stat-label">Uptime SLA</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">24/7</div>
+          <div class="stat-label">AI Ops</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="section" id="categories">
+    <div class="container">
+      <div class="section-header">
+        <h2>What Will You Rent Today?</h2>
+        <p>Enterprise-grade computers, mobile, networking, servers, and specialist telecom equipment — all available for short or long-term rental.</p>
+      </div>
+      <div class="categories">
+        <div class="category-card" onclick="filterProducts('computers'); document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+          <div class="category-icon">💻</div>
+          <h3>Computers</h3>
+          <p>Laptops & Workstations</p>
+        </div>
+        <div class="category-card" onclick="filterProducts('mobile'); document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+          <div class="category-icon">📱</div>
+          <h3>Mobile</h3>
+          <p>Phones & Tablets</p>
+        </div>
+        <div class="category-card" onclick="filterProducts('networking'); document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+          <div class="category-icon">🌐</div>
+          <h3>Networking</h3>
+          <p>Switches, APs, Routers</p>
+        </div>
+        <div class="category-card" onclick="filterProducts('servers'); document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+          <div class="category-icon">🖥️</div>
+          <h3>Servers</h3>
+          <p>Rack & Edge Servers</p>
+        </div>
+        <div class="category-card" onclick="filterProducts('telecom'); document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+          <div class="category-icon">📡</div>
+          <h3>Telecom</h3>
+          <p>VoIP, Fiber, Testers</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Catalog -->
+  <section class="section" id="products" style="padding-top: 2rem;">
+    <div class="container">
+      <div class="section-header">
+        <h2>Live Catalog</h2>
+        <p>Prices update in real time based on demand. Stock is automatically managed across warehouses.</p>
+      </div>
+
+      <div class="filters">
+        <button class="filter-btn active" data-filter="all" onclick="filterProducts('all')">All</button>
+        <button class="filter-btn" data-filter="computers" onclick="filterProducts('computers')">Computers</button>
+        <button class="filter-btn" data-filter="mobile" onclick="filterProducts('mobile')">Mobile</button>
+        <button class="filter-btn" data-filter="networking" onclick="filterProducts('networking')">Networking</button>
+        <button class="filter-btn" data-filter="servers" onclick="filterProducts('servers')">Servers</button>
+        <button class="filter-btn" data-filter="telecom" onclick="filterProducts('telecom')">Telecom</button>
+      </div>
+
+      <div class="product-grid" id="product-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section" id="how">
+    <div class="container">
+      <div class="section-header">
+        <h2>Fully Automated in 4 Steps</h2>
+        <p>From selection to return — almost zero human intervention required.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Select & Configure</h3>
+          <p>Choose duration, quantity, and options. Dynamic pricing calculates instantly.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Instant Checkout</h3>
+          <p>Secure payment. Contract & insurance auto-generated. Order ID issued in seconds.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Auto Dispatch</h3>
+          <p>Warehouse robots + IoT pick, pack, and ship. Live tracking starts immediately.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h3>Use & Return</h3>
+          <p>Schedule automated pickup. Health sensors verify condition. Deposit released.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Automation Features -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2>Automation That Actually Works</h2>
+        <p>Built for scale. Designed so ops teams can sleep.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Dynamic Pricing Engine</h3>
+          <p>ML adjusts rates every few minutes based on demand, stock levels, seasonality, and competitor signals. You always get fair live prices.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🤖</div>
+          <h3>PulseAI Support</h3>
+          <p>24/7 conversational AI handles quotes, availability, technical specs, and order status. Escalates only when truly needed.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📡</div>
+          <h3>IoT Asset Tracking</h3>
+          <p>Every device carries sensors. Real-time location, battery/health, utilization, and geofencing for security.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔄</div>
+          <h3>Zero-Touch Fulfillment</h3>
+          <p>Inventory syncs across regional hubs. Auto-allocation, picking lists, and shipping labels generated without human clicks.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Predictive Restock</h3>
+          <p>Demand forecasting automatically triggers procurement or reallocation so popular SKUs never go dark.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h3>Smart Insurance & SLA</h3>
+          <p>Damage protection, next-day replacement, and uptime SLAs are baked into every rental. Claims auto-processed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Ops Dashboard Preview -->
+  <section class="section" id="dashboard">
+    <div class="container">
+      <div class="section-header">
+        <h2>Live Operations Snapshot</h2>
+        <p>This is a real-time view of the automated backend (demo metrics update live).</p>
+      </div>
+      <div class="admin-preview">
+        <div class="admin-metrics">
+          <div class="metric">
+            <div class="metric-value" id="metric-stock">—</div>
+            <div class="metric-label">Units Available</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value" id="metric-rentals">—</div>
+            <div class="metric-label">Active Rentals</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value" id="metric-revenue">—</div>
+            <div class="metric-label">Revenue Today</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value" id="metric-auto">—</div>
+            <div class="metric-label">Auto Orders (24h)</div>
+          </div>
+        </div>
+        <p style="text-align:center;color:var(--text-muted);font-size:0.9rem;">
+          <span class="live-dot"></span> Inventory and pricing engines are live. Stock numbers refresh automatically.
+        </p>
+      </div>
+
+      <div class="cta-banner" style="margin-top:3rem;">
+        <h2>Ready to Automate Your Tech Fleet?</h2>
+        <p>Start with a single laptop or spin up a 200-device project. Same platform, same speed.</p>
+        <a href="#products" class="btn btn-primary">Start Renting Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <img src="images/logo.jpg" alt="RentPulse" style="width:36px;height:36px;border-radius:8px;">
+            <span>RentPulse</span>
+          </a>
+          <p>The fully automated platform for computer, networking, and telecom equipment rentals. Built for enterprises that move fast.</p>
+        </div>
+        <div>
+          <h4>Catalog</h4>
+          <ul>
+            <li><a href="#products" onclick="filterProducts('computers')">Computers</a></li>
+            <li><a href="#products" onclick="filterProducts('mobile')">Mobile Devices</a></li>
+            <li><a href="#products" onclick="filterProducts('networking')">Networking</a></li>
+            <li><a href="#products" onclick="filterProducts('servers')">Servers</a></li>
+            <li><a href="#products" onclick="filterProducts('telecom')">Telecom Gear</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="#features">Automation</a></li>
+            <li><a href="#how">How It Works</a></li>
+            <li><a href="#dashboard">Live Ops</a></li>
+            <li><a href="#" onclick="toggleChat();return false;">PulseAI Chat</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Enterprise</h4>
+          <ul>
+            <li><a href="#">API Access</a></li>
+            <li><a href="#">Volume Pricing</a></li>
+            <li><a href="#">Dedicated Support</a></li>
+            <li><a href="#">SLA Contracts</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 RentPulse. Fully automated demo prototype.</div>
+        <div>Built with ❤️ for modern tech fleets</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cart Overlay + Sidebar -->
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <aside class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header">
+      <h3>Your Rental Cart</h3>
+      <button class="btn btn-ghost" onclick="closeCart()">✕</button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-empty" id="cart-empty">
+      <p>🛒 Cart is empty</p>
+      <p style="font-size:0.85rem;margin-top:0.5rem;">Add devices from the catalog</p>
+    </div>
+    <div class="cart-footer" id="cart-footer" style="display:none;">
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cart-grand-total">$0</span>
+      </div>
+      <button class="btn btn-primary" style="width:100%;" onclick="checkout()">
+        Complete Automated Checkout →
+      </button>
+      <p style="font-size:0.75rem;color:var(--text-muted);text-align:center;margin-top:0.75rem;">
+        Secure • Instant contract • Next-day dispatch
+      </p>
+    </div>
+  </aside>
+
+  <!-- Rent Modal -->
+  <div class="modal-overlay" id="rent-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Configure Rental</h3>
+        <button class="btn btn-ghost" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-product">
+          <img id="modal-img" src="" alt="">
+          <div>
+            <h4 id="modal-name" style="font-size:1.1rem;margin-bottom:0.25rem;"></h4>
+            <p id="modal-specs" style="font-size:0.85rem;color:var(--text-muted);"></p>
+            <p id="modal-stock" style="font-size:0.8rem;color:var(--success);margin-top:0.35rem;"></p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Rental Duration</label>
+          <div class="duration-options" id="duration-options"></div>
+        </div>
+
+        <div class="form-group" id="custom-days-group" style="display:none;">
+          <label>Number of Days</label>
+          <input type="number" class="form-control" id="custom-days" value="14" min="1" max="365" onchange="updatePriceSummary()">
+        </div>
+
+        <div class="form-group">
+          <label>Quantity</label>
+          <div style="display:flex;align-items:center;gap:0.75rem;">
+            <button class="btn btn-outline" style="width:40px;padding:0.5rem;" onclick="updateQty(-1)">−</button>
+            <input type="number" class="form-control" id="qty-input" value="1" min="1" style="width:80px;text-align:center;" onchange="onQtyChange()">
+            <button class="btn btn-outline" style="width:40px;padding:0.5rem;" onclick="updateQty(1)">+</button>
+          </div>
+        </div>
+
+        <div class="price-summary">
+          <div class="price-row">
+            <span>Period</span>
+            <span id="summary-period">—</span>
+          </div>
+          <div class="price-row">
+            <span>Unit × Qty</span>
+            <span id="summary-unit">—</span>
+          </div>
+          <div class="price-row">
+            <span>Subtotal</span>
+            <span id="summary-subtotal">—</span>
+          </div>
+          <div class="price-row">
+            <span>Insurance (8%)</span>
+            <span id="summary-insurance">—</span>
+          </div>
+          <div class="price-row">
+            <span>Delivery</span>
+            <span id="summary-delivery">—</span>
+          </div>
+          <div class="price-row total">
+            <span>Total</span>
+            <span id="summary-total">—</span>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" style="width:100%;margin-top:1.25rem;" onclick="addToCartFromModal()">
+          Add to Cart & Continue
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Chat FAB + Window -->
+  <button class="chat-fab" onclick="toggleChat()" title="Chat with PulseAI">
+    <img src="images/ai-avatar.jpg" alt="AI">
+  </button>
+  <div class="chat-window" id="chat-window">
+    <div class="chat-header">
+      <img src="images/ai-avatar.jpg" alt="PulseAI">
+      <div class="chat-header-info">
+        <h4>PulseAI</h4>
+        <p>● Online · Automated</p>
+      </div>
+      <button class="btn btn-ghost" style="margin-left:auto;" onclick="toggleChat()">✕</button>
+    </div>
+    <div class="chat-messages" id="chat-messages"></div>
+    <div class="chat-input-area">
+      <input type="text" id="chat-input" placeholder="Ask about products, pricing, delivery..." onkeydown="handleChatKey(event)">
+      <button onclick="sendChat()">➤</button>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
